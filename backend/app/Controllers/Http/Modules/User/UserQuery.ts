@@ -5,7 +5,7 @@ export default class UserQuery{
         return await User.create(payload)
     }
     public async LoginUser(payload){
-        const user = await User.query().where('email',payload.email).andWhere('password', payload.password)
+        const user = await User.query().where('email',payload.email).andWhere('password', payload.password).select(['id','name'])
         return user
    
     }

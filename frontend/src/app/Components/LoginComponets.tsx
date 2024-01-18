@@ -1,5 +1,6 @@
 import {z} from 'zod';
 import axios from './services/instance'
+import { redirect } from 'next/navigation'
 export default async function Login(){
     async function login(formData: FormData) {
         'use server'
@@ -13,27 +14,19 @@ export default async function Login(){
               password: formData.get('password')
             })
             if(res.success){
-            const result =  axios.post('http://127.0.0.1:3333/users/login',{
+          
+            const result =  axios.post('users/login',{
               email:formData.get('email'),
               password:formData.get('password')
              }).then(response => {
               console.log('Data posted successfully', response.data);
             })
             
+            
 
             }
             
 
-            // axios.post('https://example.com/api/postData', {
-            //   firstName: 'John',
-            //   lastName: 'Doe'
-            // })
-            // .then(response => {
-            //   console.log('Data posted successfully', response.data);
-            // })
-            // .catch(error => {
-            //   console.error('Error posting data', error);
-            // });
 
            
            }catch(error){
