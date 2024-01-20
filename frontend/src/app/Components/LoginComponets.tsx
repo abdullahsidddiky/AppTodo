@@ -1,46 +1,36 @@
 import {z} from 'zod';
 import axios from './services/instance'
 import { redirect } from 'next/navigation'
+
 export default async function Login(){
-    async function login(formData: FormData) {
+  async function axiosRequests(url:string,email:string, password:string){
+    'use server'
+   try{
+    const result = axios.post(url, {
+      email:email,
+      password:password
+    })
+    return result
+   }catch(error){
+    return error
+   }
+  }
+  async function login(formData: FormData) {
         'use server'
         const validationSchema = z.object({
             email: z.string(),
             password: z.string(),
            });
-           try{
-            const res = validationSchema.safeParse({
-              email: formData.get('email'),
-              password: formData.get('password')
-            })
-            if(res.success){
-          
-            const result =  axios.post('users/login',{
-              email:formData.get('email'),
-              password:formData.get('password')
-             }).then(response => {
-              console.log('Data posted successfully', response.data);
-            })
-            
-            
-
-            }
-            
-
-
-           
-           }catch(error){
-            console.log(error)
-           }
-
-        // const rawFormData = {
-        //   email: formData.get('email'),
-        //   password: formData.get('password'),
-        // }
-
-        // mutate data
-        // revalidate cache
-      }
+           const res = validationSchema.safeParse({
+            email: formData.get('email'),
+            password: formData.get('password')
+          })  
+          if(res.success){
+            const data =await axiosRequests('users/login',res.data.email, res.data.password)
+            // console.log("data", data)
+            redirect('profile')
+          }
+          }
     return(
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
