@@ -15,7 +15,9 @@ export default class UsersController{
            const payload= await this.Validator.RegisterUser(ctx)
            return this.Service.RegisterUser(payload)
         }catch(error){
-            return error
+            return {
+                status:404
+            }
         }
     }
     public async LoginUser(ctx:HttpContextContract){
