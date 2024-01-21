@@ -1,12 +1,57 @@
 import { z } from "zod";
 import axios from "./services/instance";
 import Link from "next/link";
+import { redirect } from  "next/navigation";
 export default function Registration() {
-  async function axiosRequests() {
+  async function axiosRequests(
+    url: string,
+    name: string,
+    email: string,
+    password: string
+  ) {
     "use server";
+    console.log('axios requests from refistration component')
+    try{
+        const result = axios.post(url, {
+            name:name,
+            email:email,
+            password:password
+        })
+        return result
+    }catch(error){
+        return error;
+    }
   }
   async function registration(formData: FormData) {
     "use server";
+    console.log('registration function')
+    const validationSchema = z.object({
+      name: z.string(),
+      email: z.string().email(),
+      password: z.string(),
+    });
+    const res = validationSchema.safeParse({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("passwrod"),
+    });
+    console.log(res)
+    if (res.success) {
+      const data = await axiosRequests(
+        "users/register",
+        res.data.name,
+        res.data.email,
+        res.data.password
+      );
+      if(data.data.status == 404){
+        redirect("/register")
+      }
+      else {
+        console.log('from else', data)
+        redirect('/')
+      }
+
+    }
   }
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

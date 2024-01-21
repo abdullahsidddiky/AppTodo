@@ -21,7 +21,7 @@ export default function Login() {
   async function login(formData: FormData) {
     "use server";
     const validationSchema = z.object({
-      email: z.string(),
+      email: z.string().email(),
       password: z.string(),
     });
     const res = validationSchema.safeParse({
@@ -35,7 +35,7 @@ export default function Login() {
         res.data.password
       );
       // console.log("data", data)
-      if (data?.data.status == 404) {
+      if (data.data.status==404) {
         redirect("/");
       } else {
         redirect("profile");
