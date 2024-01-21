@@ -23,7 +23,9 @@ export default class UsersController{
             const payload = await this.Validator.LoginUser(ctx)
             return this.Service.LoginUser(payload)
         }catch(error){
-            return error
+            return {
+                status:404
+            }
         }
     }
 

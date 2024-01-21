@@ -29,7 +29,8 @@ export default class UserValidator{
         })
         const msg = {
             'email.required': 'email does not match',
-            'password.required': 'password does not match'
+            'password.required': 'password does not match',
+            'email.exists':'email does not exists'
         }
         const payload = await ctx.request.validate({schema:LoginUserSchema,messages:msg})
         return payload

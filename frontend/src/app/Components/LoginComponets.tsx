@@ -1,8 +1,9 @@
 import {z} from 'zod';
 import axios from './services/instance'
 import { redirect } from 'next/navigation'
+import { AxiosResponse } from 'axios';
 
-export default async function Login(){
+export default function Login(){
   async function axiosRequests(url:string,email:string, password:string){
     'use server'
    try{
@@ -28,7 +29,12 @@ export default async function Login(){
           if(res.success){
             const data =await axiosRequests('users/login',res.data.email, res.data.password)
             // console.log("data", data)
-            redirect('profile')
+           if(data?.data.status==404){
+            redirect('/')
+           }
+            else{
+              redirect('profile')
+            }
           }
           }
     return(

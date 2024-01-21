@@ -6,8 +6,15 @@ export default class UserQuery{
     }
     public async LoginUser(payload){
         const user = await User.query().where('email',payload.email).andWhere('password', payload.password).select(['id','name'])
-        return user
-   
+        if(!user.length){
+            return {
+                status:404
+        }   
+    }
+    return {
+        status:200,
+        user:user
     }
     
+    }
 }

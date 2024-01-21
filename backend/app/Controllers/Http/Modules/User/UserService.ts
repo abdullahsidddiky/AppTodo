@@ -11,6 +11,6 @@ export default class userService{
         return this.Query.RegisterUser(payload)
     }
     public async LoginUser(payload){
-        return this.Query.LoginUser(payload)
-    }
+    return this.Query.LoginUser(payload)}
+
 }
