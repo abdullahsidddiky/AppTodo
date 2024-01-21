@@ -10,7 +10,6 @@ export default function Registration() {
     password: string
   ) {
     "use server";
-    console.log('axios requests from refistration component')
     try{
         const result = axios.post(url, {
             name:name,
@@ -33,16 +32,15 @@ export default function Registration() {
     const res = validationSchema.safeParse({
       name: formData.get("name"),
       email: formData.get("email"),
-      password: formData.get("passwrod"),
+      password: formData.get("password"),
     });
-    console.log(res)
     if (res.success) {
       const data = await axiosRequests(
         "users/register",
         res.data.name,
         res.data.email,
         res.data.password
-      );
+      ); 
       if(data.data.status == 404){
         redirect("/register")
       }
