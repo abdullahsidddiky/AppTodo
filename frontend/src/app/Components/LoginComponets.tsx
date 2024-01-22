@@ -12,7 +12,13 @@ export default function Login() {
       const result = axios.post(url, {
         email: email,
         password: password,
-      });
+      },
+      {
+        withCredentials:true
+      }
+      
+      );
+      console.log((await result).headers)
       return result;
     } catch (error) {
       return error;
