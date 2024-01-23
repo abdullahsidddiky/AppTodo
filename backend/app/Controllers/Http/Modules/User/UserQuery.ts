@@ -21,11 +21,15 @@ export default class UserQuery {
       }
     }
   }
+  public async Logout({auth, payload}){
+    console.log('on query')
+    await auth.use('web').logout()
+  }
   public async CreatePost(payload) {
     console.log(payload)
    
 
-    //   await Todo.create(payload)
+      await Todo.create(payload)
       try{
     }catch(error){
         return{

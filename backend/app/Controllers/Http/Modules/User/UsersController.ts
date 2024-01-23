@@ -29,6 +29,16 @@ export default class UsersController {
       }
     }
   }
+  public async Logout({request, auth}:HttpContextContract){
+    try{
+      const payload = await this.Validator.Logout(request)
+      return this.Service.Logout({auth, payload})
+    }catch(error){
+      return {
+        status:404
+      }
+    }
+  }
   public async CreateTodo(ctx: HttpContextContract) {
     try {
       const payload = await this.Validator.CreatePost(ctx)

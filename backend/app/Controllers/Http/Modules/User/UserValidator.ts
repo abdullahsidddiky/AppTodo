@@ -29,6 +29,16 @@ export default class UserValidator {
     // console.log('validated from validator', payload)
     return payload
   }
+  public async Logout(request){
+    const LogoutSchema =schema.create({
+      id:schema.number([rules.exists({table:'users', column:'id'})])
+    })
+    const msg = {
+      'id.exists':'id does not exists'
+    }
+    const payload = await request.validate({schema:LogoutSchema, messages:msg })
+    return payload 
+  }
   public async CreatePost(ctx: HttpContextContract) {
     const CreatePostSchema = schema.create({
       userId: schema.number([rules.exists({ table: 'users', column: 'id' })]),
@@ -36,7 +46,7 @@ export default class UserValidator {
     })
     const msg = {
       'userId.required': 'id does not match',
-      'userId.exists': 'is does not exists',
+      'userId.exists': 'id does not exists',
       'contetn.required': 'content required',
     }
 
