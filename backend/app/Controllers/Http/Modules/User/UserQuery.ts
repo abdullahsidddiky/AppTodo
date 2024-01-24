@@ -1,5 +1,6 @@
 import Todo from 'App/Models/Todo'
 import User from 'App/Models/User'
+import session from 'Config/session'
 
 export default class UserQuery {
   public async RegisterUser(payload) {

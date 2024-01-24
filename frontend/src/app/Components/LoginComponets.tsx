@@ -1,10 +1,10 @@
 import { z } from "zod";
 import axios from "./services/instance";
 import { redirect } from "next/navigation";
-import { AxiosResponse } from "axios";
+import { AxiosResponse, all } from "axios";
 import Registration from "./RegistrationComponent";
 import Link from "next/link";
-
+import { cookies } from 'next/headers'
 export default function Login() {
   async function axiosRequests(url: string, email: string, password: string) {
     "use server";
@@ -14,11 +14,11 @@ export default function Login() {
         password: password,
       },
       {
-        withCredentials:true
+        withCredentials:true,
       }
-      
       );
-      console.log((await result).headers)
+    //  console.log(result)
+    //  cookies().set('id',result.id)
       return result;
     } catch (error) {
       return error;
@@ -40,11 +40,13 @@ export default function Login() {
         res.data.email,
         res.data.password
       );
-      // console.log("data", data)
-      if (data.data.status==404) {
+        // console.log("data id", data.data.data.id)
+      if (data.data.status==405) {
         redirect("/");
       } else {
+        cookies().set('id',data.data.data.id)
         redirect("profile");
+
       }
     }
   }
