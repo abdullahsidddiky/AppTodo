@@ -4,6 +4,10 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { cookies } from 'next/headers'
 export default function Login() {
+  const id = cookies().get('token')?.value
+  if(id){
+    redirect('profile')
+  }
   async function axiosRequests(url: string, email: string, password: string) {
     "use server";
     try {
@@ -15,10 +19,6 @@ export default function Login() {
         withCredentials:true,
       }
       );
-      // console.log(result.data.data.token)
-      // cookies().set('token', result.data.data.token)
-    //  console.log(result)
-    //  cookies().set('id',result.id)
       return result;
     } catch (error) {
       return error;

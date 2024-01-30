@@ -3,13 +3,9 @@ import { cookies, headers } from "next/headers";
 import { z } from "zod";
 
 export default function Form(){
-  // const id = cookies().get('id')?.value
-  const email=  cookies().get('email')?.value
-  const password = cookies().get('password')?.value
   const token = cookies().get('token')?.value
   async function axiosRequests(url:string, value:string, token:string){
     'use server'
-    // console.log(url)
     try{
     const result = await axios.post(url,
        {
@@ -18,15 +14,10 @@ export default function Form(){
       {headers: {
         'Authorization': 'Bearer ' + token
       }}
-      // {
-      //   withCredentials:true
-      // },
-    
       )
-    //  console.log(result)
     return result
     }catch(error){
-      // return error
+      return error
     }
   }
   async function post(formData:FormData){
@@ -47,9 +38,7 @@ export default function Form(){
           'users/addTodo',
           todoValue,
           token
-         
         )
-        // console.log(data)
       }
   }
 }
