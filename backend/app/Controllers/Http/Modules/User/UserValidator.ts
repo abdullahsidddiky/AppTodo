@@ -41,12 +41,9 @@ export default class UserValidator {
   }
   public async CreatePost(request) {
     const CreatePostSchema = schema.create({
-      // userId: schema.number([rules.exists({ table: 'users', column: 'id' })]),
       content: schema.string(),
     })
     const msg = {
-      'userId.required': 'id does not match',
-      'userId.exists': 'id does not exists',
       'contetn.required': 'content required',
     }
 
