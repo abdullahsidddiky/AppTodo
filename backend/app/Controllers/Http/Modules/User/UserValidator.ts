@@ -39,9 +39,9 @@ export default class UserValidator {
     const payload = await request.validate({schema:LogoutSchema, messages:msg })
     return payload 
   }
-  public async CreatePost(ctx: HttpContextContract) {
+  public async CreatePost(request) {
     const CreatePostSchema = schema.create({
-      userId: schema.number([rules.exists({ table: 'users', column: 'id' })]),
+      // userId: schema.number([rules.exists({ table: 'users', column: 'id' })]),
       content: schema.string(),
     })
     const msg = {
@@ -50,7 +50,8 @@ export default class UserValidator {
       'contetn.required': 'content required',
     }
 
-    const payload = await ctx.request.validate({ schema: CreatePostSchema, messages: msg })
+    const payload = await request.validate({ schema: CreatePostSchema, messages: msg })
+    console.log(payload)
     return payload
   }
 }

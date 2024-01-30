@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import userService from './UserService'
 import UserValidator from './UserValidator'
+import User from 'App/Models/User'
 export default class UsersController {
   private Validator: UserValidator
   private Service: userService
@@ -39,15 +40,19 @@ export default class UsersController {
       }
     }
   }
-  public async CreateTodo(ctx: HttpContextContract) {
+  public async CreateTodo({request, auth}: HttpContextContract) {
+    
+    // console.log(ctx)
+ console.log('ON CONTROLLER')
     try {
-      const payload = await this.Validator.CreatePost(ctx)
-      console.log(payload)
-      return this.Service.CreatePost(payload)
+      const payload = await this.Validator.CreatePost(request)
+     
+      return this.Service.CreatePost({auth, payload})
     } catch (error) {
       return {
         status: 404,
       }
     }
   }
+
 }
