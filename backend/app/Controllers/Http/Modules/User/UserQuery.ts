@@ -42,4 +42,11 @@ export default class UserQuery {
       return error
     }
 }
+public async GetData({auth}){
+  console.log('called')
+  const user = await auth.use('api').user
+  const todo = await Todo.query().where('user_id', user.id)
+  // console.log(todo)
+  return todo
+}
 }

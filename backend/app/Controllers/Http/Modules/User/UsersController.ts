@@ -24,7 +24,7 @@ export default class UsersController {
       const payload = await this.Validator.LoginUser(request)
       return this.Service.LoginUser({ auth, payload })
     } catch (error) {
-      console.log('error')
+ 
       return {
         status: 404,
       }
@@ -41,9 +41,7 @@ export default class UsersController {
     }
   }
   public async CreateTodo({request, auth}: HttpContextContract) {
-    
-    // console.log(ctx)
- console.log('ON CONTROLLER')
+
     try {
       const payload = await this.Validator.CreatePost(request)
      
@@ -52,6 +50,23 @@ export default class UsersController {
       return {
         status: 404,
       }
+    }
+  }
+
+  public async GetData({auth}:HttpContextContract){
+    
+    try{
+      const user_id = await auth.use('api').user?.id
+      if(user_id){
+        return this.Service.GetData({auth})
+      }
+      else{
+        return {
+          status:405
+        }
+      }
+    }catch(error){
+      return error
     }
   }
 

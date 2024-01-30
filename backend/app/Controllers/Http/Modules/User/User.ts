@@ -7,6 +7,7 @@ Route.group(() => {
     
     Route.group(() => {
       Route.post('addTodo','Modules/User/UsersController.CreateTodo')
+      Route.get('getTodo','Modules/User/UsersController.GetData')
       Route.post('logout','Modules/User/UsersController.Logout')
 
     }).middleware('auth')

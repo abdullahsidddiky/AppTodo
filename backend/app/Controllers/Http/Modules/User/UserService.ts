@@ -18,4 +18,7 @@ export default class userService {
   public async CreatePost({auth, payload}) {
     return this.Query.CreatePost({auth, payload})
   }
+  public async GetData({auth}){
+   return  this.Query.GetData({auth})
+  }
 }

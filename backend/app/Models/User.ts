@@ -3,6 +3,7 @@ import { BaseModel, HasMany, beforeSave, column, hasMany } from '@ioc:Adonis/Luc
 import Hash from '@ioc:Adonis/Core/Hash'
 import Todo from './Todo'
 export default class User extends BaseModel {
+
   @column({ isPrimary: true })
   public id: number
 
@@ -31,7 +32,10 @@ export default class User extends BaseModel {
     }
   }
 
-  @hasMany(() => Todo)
+  @hasMany(() => Todo,{
+    localKey:'id',
+    foreignKey:"userId"
+  })
   public todos: HasMany<typeof Todo>
 }
 //checking git
