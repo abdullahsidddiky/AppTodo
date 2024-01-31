@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import axios from "./services/instance";
 import { cookies, headers } from "next/headers";
 import { z } from "zod";
@@ -15,6 +16,9 @@ export default function Form(){
         'Authorization': 'Bearer ' + token
       }}
       )
+      if(result){
+        revalidateTag('collection')
+      }
     return result
     }catch(error){
       return error
