@@ -2,22 +2,24 @@ import { z } from "zod";
 import axios from "./services/instance";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { cookies } from 'next/headers'
+import { cookies } from "next/headers";
 export default function Login() {
-  const id = cookies().get('token')?.value
-  if(id){
-    redirect('profile')
+  const id = cookies().get("token")?.value;
+  if (id) {
+    redirect("profile");
   }
   async function axiosRequests(url: string, email: string, password: string) {
     "use server";
     try {
-      const result = await axios.post(url, {
-        email: email,
-        password: password,
-      },
-      {
-        withCredentials:true,
-      }
+      const result = await axios.post(
+        url,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
       );
       return result;
     } catch (error) {
@@ -35,18 +37,16 @@ export default function Login() {
       password: formData.get("password"),
     });
     if (res.success) {
-      const data:any = await axiosRequests(
+      const data: any = await axiosRequests(
         "users/login",
         res.data.email,
         res.data.password
       );
-        console.log("data from login", data.data.status)
-      if (data.data.status==200) {
-        cookies().set('token', data.data.data.token)
+      if (data.data.status == 200) {
+        cookies().set("token", data.data.data.token);
         redirect("profile");
       } else {
-        
-        console.log(data)
+        console.log(data);
         redirect("/");
       }
     }

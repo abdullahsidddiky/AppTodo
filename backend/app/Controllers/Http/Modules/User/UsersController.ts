@@ -1,7 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import userService from './UserService'
 import UserValidator from './UserValidator'
-import User from 'App/Models/User'
 export default class UsersController {
   private Validator: UserValidator
   private Service: userService
@@ -24,28 +23,26 @@ export default class UsersController {
       const payload = await this.Validator.LoginUser(request)
       return this.Service.LoginUser({ auth, payload })
     } catch (error) {
- 
       return {
         status: 404,
       }
     }
   }
-  public async Logout({request, auth}:HttpContextContract){
-    try{
+  public async Logout({ request, auth }: HttpContextContract) {
+    try {
       const payload = await this.Validator.Logout(request)
-      return this.Service.Logout({auth, payload})
-    }catch(error){
+      return this.Service.Logout({ auth, payload })
+    } catch (error) {
       return {
-        status:404
+        status: 404,
       }
     }
   }
-  public async CreateTodo({request, auth}: HttpContextContract) {
-
+  public async CreateTodo({ request, auth }: HttpContextContract) {
     try {
       const payload = await this.Validator.CreatePost(request)
-     
-      return this.Service.CreatePost({auth, payload})
+
+      return this.Service.CreatePost({ auth, payload })
     } catch (error) {
       return {
         status: 404,
@@ -53,21 +50,18 @@ export default class UsersController {
     }
   }
 
-  public async GetData({auth}:HttpContextContract){
-    
-    try{
+  public async GetData({ auth }: HttpContextContract) {
+    try {
       const user_id = await auth.use('api').user?.id
-      if(user_id){
-        return this.Service.GetData({auth})
-      }
-      else{
+      if (user_id) {
+        return this.Service.GetData({ auth })
+      } else {
         return {
-          status:405
+          status: 405,
         }
       }
-    }catch(error){
+    } catch (error) {
       return error
     }
   }
-
 }

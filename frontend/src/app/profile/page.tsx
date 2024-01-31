@@ -3,6 +3,7 @@ import axios from "../Components/services/instance";
 import { redirect } from "next/navigation";
 import Form from "../Components/form";
 import { date } from "zod";
+import Card from "../Components/Card";
 async function getData() {
   const token = cookies().get("token")?.value;
     const res = await axios.get("users/getTodo", {
@@ -31,8 +32,9 @@ export default async function Home() {
         {data.map((item: any) => (
           <div key={item.id}>
             <p>ID: {item.id}</p>
-            <p>User ID: {item.user_id}</p>
+            {/* <p>User ID: {item.user_id}</p> */}
             <p>Content: {item.content}</p>
+            <Card data={data}/>
           </div>
         ))}
       </div>
