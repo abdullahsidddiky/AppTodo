@@ -20,8 +20,13 @@ export default class UserQuery {
       }
     }
   }
-  public async Logout({ auth, payload }) {
-    console.log('on query')
+  public async Logout({ auth }) {
+  
+    await auth.use('api').logout()
+    console.log('logout funciton query called')
+    return {
+      status:200
+    }
     // return await auth.use('web')
     // return await auth.use('web').logout()
   }

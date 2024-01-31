@@ -29,9 +29,10 @@ export default class UsersController {
     }
   }
   public async Logout({ request, auth }: HttpContextContract) {
+
     try {
-      const payload = await this.Validator.Logout(request)
-      return this.Service.Logout({ auth, payload })
+      // const payload = await this.Validator.Logout(request)
+      return this.Service.Logout({ auth })
     } catch (error) {
       return {
         status: 404,

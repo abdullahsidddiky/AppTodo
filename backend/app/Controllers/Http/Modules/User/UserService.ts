@@ -12,8 +12,8 @@ export default class userService {
   public async LoginUser({ auth, payload }) {
     return this.Query.LoginUser({ auth, payload })
   }
-  public async Logout({auth, payload}){
-    return this.Query.Logout({auth,payload})
+  public async Logout({auth}){
+    return this.Query.Logout({auth})
   }
   public async CreatePost({auth, payload}) {
     return this.Query.CreatePost({auth, payload})

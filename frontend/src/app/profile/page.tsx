@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Form from "../Components/form";
 import { date } from "zod";
 import Card from "../Components/Card";
+import LogoutButton from "../Components/LogoutButton";
 async function getData() {
   const token = cookies().get("token")?.value;
     const res = await axios.get("users/getTodo", {
@@ -25,6 +26,9 @@ export default async function Home() {
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div>
+        <LogoutButton/>
+      </div>
       <div>
         <Form />
       </div>
