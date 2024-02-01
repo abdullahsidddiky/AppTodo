@@ -7,27 +7,24 @@ import Card from "../Components/Card";
 import LogoutButton from "../Components/LogoutButton";
 async function getData() {
   const token = cookies().get("token")?.value;
-    const res = await axios.get("users/getTodo", {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-      params: { next: { tags: ["collection"] } },
-    });
-    if (!res) {
-      throw new Error("Failed to fetch data");
-    }
-  // console.log(res)
+  const res = await axios.get("users/getTodo", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    params: { next: { tags: ["collection"] } },
+  });
+  if (!res) {
+    throw new Error("Failed to fetch data");
+  }
   return res.data;
 }
 export default async function Home() {
-  const data = await getData()
-  // console.log("data", data.status);
- 
-  
+  const data = await getData();
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
-        <LogoutButton/>
+        <LogoutButton />
       </div>
       <div>
         <Form />
@@ -36,9 +33,8 @@ export default async function Home() {
         {data.map((item: any) => (
           <div key={item.id}>
             <p>ID: {item.id}</p>
-            {/* <p>User ID: {item.user_id}</p> */}
             <p>Content: {item.content}</p>
-            <Card data={data}/>
+            <Card data={data} />
           </div>
         ))}
       </div>

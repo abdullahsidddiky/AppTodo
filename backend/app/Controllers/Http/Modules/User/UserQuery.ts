@@ -21,14 +21,11 @@ export default class UserQuery {
     }
   }
   public async Logout({ auth }) {
-  
     await auth.use('api').logout()
     console.log('logout funciton query called')
     return {
-      status:200
+      status: 200,
     }
-    // return await auth.use('web')
-    // return await auth.use('web').logout()
   }
   public async CreatePost({ auth, payload }) {
     const id = auth.use('api').user.id
@@ -48,7 +45,6 @@ export default class UserQuery {
   public async GetData({ auth }) {
     const user = await auth.use('api').user
     const todo = await Todo.query().where('user_id', user.id).orderBy('created_at', 'desc')
-    // console.log(todo)
     return todo
   }
 }

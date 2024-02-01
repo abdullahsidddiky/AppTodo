@@ -29,9 +29,7 @@ export default class UsersController {
     }
   }
   public async Logout({ request, auth }: HttpContextContract) {
-
     try {
-      // const payload = await this.Validator.Logout(request)
       return this.Service.Logout({ auth })
     } catch (error) {
       return {
@@ -42,7 +40,6 @@ export default class UsersController {
   public async CreateTodo({ request, auth }: HttpContextContract) {
     try {
       const payload = await this.Validator.CreatePost(request)
-
       return this.Service.CreatePost({ auth, payload })
     } catch (error) {
       return {
